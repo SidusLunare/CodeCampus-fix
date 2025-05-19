@@ -1,0 +1,36 @@
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+}
+.filter-tabs button {
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-tabs button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+@media (max-width: 767px) {
+  .filter-tabs {
+    overflow: visible;        /* undo overflow-x */
+    white-space: normal;      /* undo nowrap */
+    flex-wrap: wrap;          /* allow wrapping */
+    gap: 8px;                 /* spacing between buttons */
+  }
+
+  /* First button full width on its own row */
+  .filter-tabs button:first-child {
+    flex: 1 1 100%;
+  }
+
+  /* The other three share the next row equally */
+  .filter-tabs button:not(:first-child) {
+    flex: 1 1 calc(33.333% - 8px);
+  }
+}

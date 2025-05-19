@@ -29,7 +29,7 @@
 }
 
 .course-image::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -148,18 +148,24 @@
   font-size: 16px;
 }
 
-@media (max-width: 768px) {
+/* Tablet: two columns */
+@media (min-width: 768px) and (max-width: 1023px) {
   .course-list {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .course-image {
+    /* was e.g. 180px — bump to 220px */
+    height: 220px;
   }
 }
 
-@media (max-width: 500px) {
+/* Mobile: one column */
+@media (max-width: 767px) {
   .course-list {
     grid-template-columns: 1fr;
   }
-
   .course-image {
-    height: 160px;
+    /* was 160px — bump to 200px */
+    height: 200px;
   }
 }

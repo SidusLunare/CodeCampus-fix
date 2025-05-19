@@ -52,6 +52,14 @@
   margin-right: 25px;
 }
 
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* allows wrapping on mobile */
+  gap: 12px;
+}
+
 .main-content h2 {
   margin-top: 0;
   margin-bottom: 30px;
@@ -62,7 +70,7 @@
 }
 
 .main-content h2::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -98,7 +106,7 @@
 
 .popular-courses-widget h3::after,
 .statistics-widget h3::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -203,16 +211,40 @@
   }
 }
 
-@media (max-width: 500px) {
-  .tab-buttons {
+/* ---------------------------
+   Layout breakpoint: Tablet
+   (screen width 768–1023px)
+   --------------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dashboard-content {
     flex-direction: column;
   }
 
-  .tab-buttons button {
-    width: 100%;
+  .main-content {
+    margin-right: 0;           /* remove gutter to sidebar */
   }
 
-  .stats-container {
-    grid-template-columns: 1fr;
+  .sidebar {
+    width: 100%;
+    margin-top: 30px;          /* push below main content */
+  }
+}
+
+/* ---------------------------
+   Layout breakpoint: Mobile
+   (screen width <768px)
+   --------------------------- */
+@media (max-width: 767px) {
+  .dashboard-content {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-right: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin-top: 30px;
   }
 }
