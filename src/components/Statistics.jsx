@@ -12,10 +12,16 @@ const Statistics = ({ courses }) => {
   };
 
   const getAverageRating = () => {
-    const avg =
+    let avg;
+    if (courses.length >= 1) {
+          avg =
       courses.reduce((total, course) => total + course.rating, 0) /
       courses.length;
     return avg.toFixed(1);
+    } if (courses.length == null || courses.length == 0) {
+      return "-";
+    }
+
   };
 
   return (
