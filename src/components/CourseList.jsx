@@ -8,7 +8,7 @@ const CourseList = ({ courses }) => {
   return (
     <section className='course-list'>
       {courses.map((course) => (
-        <CourseCard course={course} />
+        <CourseCard key={course.id} course={course} />
       ))}
     </section>
   );
