@@ -10,8 +10,11 @@ import Statistics   from './Statistics';
 export default function Dashboard({ courseData }) {
   const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortField, setSortField]   = useState('views');
-
+  const [sortField, setSortField] = useState({
+    value: 'views',
+    label: 'Totaal weergaven'
+  });
+  
   const filteredCourses = () => {
     if (!Array.isArray(courseData)) return [];
 
@@ -23,8 +26,8 @@ export default function Dashboard({ courseData }) {
       case 'gevorderd':
         list = courseData.filter(c => c.level === 'Gevorderd');
         break;
-      case 'populair':
-        list = [...courseData].sort((a, b) => b[sortField] - a[sortField]);
+      case 'filter by':
+        list = [...courseData].sort((a, b) => b[sortField.value] - a[sortField.value]);
         break;
       default:
         list = courseData;
@@ -57,7 +60,7 @@ export default function Dashboard({ courseData }) {
             {activeTab === 'all'        && 'Alle Cursussen'}
             {activeTab === 'beginner'   && 'Cursussen voor Beginners'}
             {activeTab === 'gevorderd'  && 'Gevorderde Cursussen'}
-            {activeTab === 'populair'   && 'Meest Bekeken Cursussen'}
+            {activeTab === 'filter by'  &&  sortField.label}
           </h2>
           <CourseList courses={filteredCourses()} />
         </main>

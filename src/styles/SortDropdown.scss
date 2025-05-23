@@ -1,0 +1,58 @@
+.sort-container {
+    margin-left: 0px;
+}
+
+.sort-select {
+
+    &__control {
+        min-width: 200px;
+        padding: 8px 8px 8px 8px;
+        background: #fff;
+        border: 1px solid var(--primary-color);
+        border-radius: 0px 25px 25px 0px;
+        transition: var(--transition);
+        font-size: 14px;
+        &--menu-is-open{
+            border-radius: 0px 20px 0px 0px;
+            border-top: 1px solid var(--primary-color);
+            border-right: 1px solid var(--primary-color);
+            border-left: 1px solid var(--primary-color);
+            border-bottom: 0px;
+        }
+
+    }
+
+    &__menu {
+        min-width: 200px;
+        padding: 0px 0px 18px 0px;
+        background: #fff;
+        border-right: 1px solid var(--primary-color);
+        border-bottom: 1px solid var(--primary-color);
+        border-left: 1px solid var(--primary-color);
+        border-radius: 0px 0px 25px 25px;
+        transition: var(--transition);
+        font-size: 14px;
+    }
+    &__option{
+
+        border-bottom: 1px solid var(--primary-color);
+        padding: 4px 8px 4px 8px;
+        &:last-child{
+            border-bottom: 0px;
+        }
+        &:first-child{
+            border-bottom: 0px;
+            border-top: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+        }
+        &:hover {
+            background-color: var(--primary-color);
+            cursor: pointer;
+            color: white;
+        }
+    }
+    &__dropdown-indicator{
+        margin-left: 32px;
+    }
+
+}

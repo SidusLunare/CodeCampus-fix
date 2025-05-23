@@ -24,11 +24,13 @@
   border-radius: 25px;
   cursor: pointer;
   transition: var(--transition);
+  font-size: 14px;
 }
 .filter-tabs button.active {
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
+  font-size: 14px;
 }
 
 .filter-dropdown-wrapper {

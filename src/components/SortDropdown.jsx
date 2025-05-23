@@ -2,30 +2,33 @@ import Select from 'react-select';
 import '../styles/SortDropdown.css';
 
 export default function SortDropdown({ value, onChange }) {
-    const tabs = [
+    const filters = [
     { key: 'views', label: 'Totaal weergaven' },
     { key: 'members', label: 'Totaal leden' },
     { key: 'rating', label: 'Gemiddelde beoordeling' },
   ];
 
-  const options = tabs.map(tab => ({
-    value: tab.key,
-    label: tab.label,
+  const options = filters.map(filter => ({
+    value: filter.key,
+    label: filter.label,
   }));
+
+  function lowercaseFirst(str) {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
 
   return (
     <div className="sort-container">
-      {/* <select
-        className="sort-select"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-      >
-      </select> */}
       <Select
-      value={options.find(o => o.value === value)}
-      onChange={option => onChange(option.value)}
-      options={options}
-      classNamePrefix="sort-select"
+        value={options.find(o => o.value === value)}
+        onChange={option => onChange({
+              value: option.value,
+              label: `Gefilterd op ${lowercaseFirst(option.label)}`,
+        })}
+        options={options}
+        classNamePrefix="sort-select"
+        unstyled
+        isSearchable={false}
       />
     </div>
   );
