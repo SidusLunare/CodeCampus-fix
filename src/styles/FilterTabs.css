@@ -1,6 +1,7 @@
 .filter-tabs {
   display: flex;
   gap: 8px;
+
 }
 .filter-tabs button:nth-child(4) {
   padding: 8px 16px;
@@ -9,6 +10,7 @@
   border-radius: 25px;
   cursor: pointer;
   transition: var(--transition);
+  font-size: 14px;
 }
 .filter-tabs button.active:nth-child(4) {
   background: var(--primary-color);
@@ -16,6 +18,7 @@
   border-color: var(--primary-color);
   border-radius: 25px 0px 0px 25px;
   margin-right: -8px;
+  font-size: 14px;
 }
 .filter-tabs button {
   padding: 8px 16px;
@@ -25,33 +28,16 @@
   cursor: pointer;
   transition: var(--transition);
   font-size: 14px;
+  height: 40px;
 }
 .filter-tabs button.active {
+  padding: 8px 16px;
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
   font-size: 14px;
-}
+  min-height: 40px;
 
 .filter-dropdown-wrapper {
   display: flex;
-}
-
-@media (max-width: 767px) {
-  .filter-tabs {
-    overflow: visible; /* undo overflow-x */
-    white-space: normal; /* undo nowrap */
-    flex-wrap: wrap; /* allow wrapping */
-    gap: 8px; /* spacing between buttons */
-  }
-
-  /* First button full width on its own row */
-  .filter-tabs button:first-child {
-    flex: 1 1 100%;
-  }
-
-  /* The other three share the next row equally */
-  .filter-tabs button:not(:first-child) {
-    flex: 1 1 calc(33.333% - 8px);
-  }
 }
