@@ -37,7 +37,7 @@
   border-color: var(--primary-color);
   font-size: 14px;
   min-height: 40px;
-
+}
 .filter-dropdown-wrapper {
   display: flex;
 }

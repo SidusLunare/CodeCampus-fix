@@ -17,7 +17,6 @@ export default function Dashboard({ courseData }) {
   
   const filteredCourses = () => {
     if (!Array.isArray(courseData)) return [];
-
     let list;
     switch (activeTab) {
       case 'beginner':
@@ -27,7 +26,17 @@ export default function Dashboard({ courseData }) {
         list = courseData.filter(c => c.level === 'Gevorderd');
         break;
       case 'filter by':
-        list = [...courseData].sort((a, b) => b[sortField.value] - a[sortField.value]);
+        list = [...courseData].sort((a, b) => {
+          switch (sortField.value) {
+            case 'views':
+              return b[sortField.value] - a[sortField.value];
+            case 'members':
+              return b[sortField.value] - a[sortField.value];
+            case 'durationNum':
+              return a[sortField.value] - b[sortField.value];
+            default:
+              return 0;
+          }});
         break;
       default:
         list = courseData;

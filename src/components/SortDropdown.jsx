@@ -5,7 +5,7 @@ export default function SortDropdown({ value, onChange }) {
     const filters = [
     { key: 'views', label: 'Totaal weergaven' },
     { key: 'members', label: 'Totaal leden' },
-    { key: 'rating', label: 'Gemiddelde beoordeling' },
+    { key: 'durationNum', label: 'Lengte (kort -> lang)' },
   ];
 
   const options = filters.map(filter => ({
