@@ -1,12 +1,13 @@
 .sort-container {
-  margin-left: 12px;
+  margin-left: 0px;
 }
 
 .sort-select {
-  padding: 8px 16px;
+  padding: 8px 32px 8px 8px;
   font-size: 14px;
   border: 1px solid #e9ecef;
-  border-radius: 30px;
+  border-radius: 0px 25px 25px 0px;
+  /* border-radius: 25px; */
   background: #fff;
   transition: var(--transition);
   appearance: none;

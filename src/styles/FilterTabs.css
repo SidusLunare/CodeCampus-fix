@@ -2,9 +2,24 @@
   display: flex;
   gap: 8px;
 }
+.filter-tabs button:nth-child(4) {
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-tabs button.active:nth-child(4) {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  border-radius: 25px 0px 0px 25px;
+  margin-right: -8px;
+}
 .filter-tabs button {
   padding: 8px 16px;
-  background: #f8f9fa;
+  background: #fff;
   border: 1px solid #e9ecef;
   border-radius: 25px;
   cursor: pointer;
@@ -16,12 +31,16 @@
   border-color: var(--primary-color);
 }
 
+.filter-dropdown-wrapper {
+  display: flex;
+}
+
 @media (max-width: 767px) {
   .filter-tabs {
-    overflow: visible;        /* undo overflow-x */
-    white-space: normal;      /* undo nowrap */
-    flex-wrap: wrap;          /* allow wrapping */
-    gap: 8px;                 /* spacing between buttons */
+    overflow: visible; /* undo overflow-x */
+    white-space: normal; /* undo nowrap */
+    flex-wrap: wrap; /* allow wrapping */
+    gap: 8px; /* spacing between buttons */
   }
 
   /* First button full width on its own row */
