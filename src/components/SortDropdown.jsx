@@ -1,5 +1,6 @@
 import Select from 'react-select';
 import '../styles/SortDropdown.css';
+import { lowercaseFirst } from '../extra/functions';
 
 export default function SortDropdown({ value, onChange }) {
     const filters = [
@@ -12,10 +13,6 @@ export default function SortDropdown({ value, onChange }) {
     value: filter.key,
     label: filter.label,
   }));
-
-  function lowercaseFirst(str) {
-    return str.charAt(0).toLowerCase() + str.slice(1);
-  }
 
   return (
     <div className="sort-container">
