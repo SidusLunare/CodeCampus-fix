@@ -15,6 +15,20 @@ export default function Dashboard({ courseData }) {
     label: 'Totaal weergaven'
   });
   
+  const filterSort = (x, y) => {
+    switch (sortField.value) {
+      case 'views':
+        return y[sortField.value] - x[sortField.value];
+      case 'members':
+        return y[sortField.value] - x[sortField.value];
+      case 'durationNum':
+        return x[sortField.value] - y[sortField.value];
+      default:
+        return 0;
+    }
+  }
+
+
   const filteredCourses = () => {
     if (!Array.isArray(courseData)) return [];
     let list;
@@ -26,17 +40,7 @@ export default function Dashboard({ courseData }) {
         list = courseData.filter(c => c.level === 'Gevorderd');
         break;
       case 'filter by':
-        list = [...courseData].sort((a, b) => {
-          switch (sortField.value) {
-            case 'views':
-              return b[sortField.value] - a[sortField.value];
-            case 'members':
-              return b[sortField.value] - a[sortField.value];
-            case 'durationNum':
-              return a[sortField.value] - b[sortField.value];
-            default:
-              return 0;
-          }});
+        list = [...courseData].sort((a, b) => {filterSort(a,b)});
         break;
       default:
         list = courseData;

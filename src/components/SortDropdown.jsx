@@ -14,14 +14,24 @@ export default function SortDropdown({ value, onChange }) {
     label: filter.label,
   }));
 
+  const filterOnChange = (option) => {
+
+    onChange({
+      value: option.value,
+      label: `Gefilterd op ${lowercaseFirst(option.label)}`,
+    })
+  }
+
+  const filterValue = () => {
+    
+    options.find(o => o.value === value)
+  }
+
   return (
     <div className="sort-container">
       <Select
-        value={options.find(o => o.value === value)}
-        onChange={option => onChange({
-              value: option.value,
-              label: `Gefilterd op ${lowercaseFirst(option.label)}`,
-        })}
+        value={filterValue()}
+        onChange={filterOnChange}
         options={options}
         classNamePrefix="sort-select"
         unstyled
