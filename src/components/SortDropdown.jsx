@@ -1,9 +1,10 @@
 import Select from 'react-select';
 import '../styles/SortDropdown.css';
-import { lowercaseFirst } from '../extra/functions';
+import { lowercaseFirst, setFilterLocalStorage, getFilterLocalStorage } from '../extra/functions';
 
 export default function SortDropdown({ value, onChange }) {
-    const filters = [
+
+  const filters = [
     { key: 'views', label: 'Totaal weergaven' },
     { key: 'members', label: 'Totaal leden' },
     { key: 'durationNum', label: 'Lengte (kort -> lang)' },
@@ -13,29 +14,39 @@ export default function SortDropdown({ value, onChange }) {
     value: filter.key,
     label: filter.label,
   }));
-
+  
   const filterOnChange = (option) => {
-
+    setFilterLocalStorage(option)
+    
     onChange({
       value: option.value,
       label: `Gefilterd op ${lowercaseFirst(option.label)}`,
     })
   }
 
-  const filterValue = () => {
-    
-    options.find(o => o.value === value)
+  const filterValueFunction = () => {
+      options.find(o => o.value === value)
+  }
+
+  const filterPlaceholderFunction = () => {
+    const fromLS = getFilterLocalStorage();
+    if (fromLS !== null) {
+      return fromLS.filter.label
+    } else {
+      return
+    }
   }
 
   return (
     <div className="sort-container">
       <Select
-        value={filterValue()}
+        value={filterValueFunction()}
         onChange={filterOnChange}
         options={options}
         classNamePrefix="sort-select"
         unstyled
         isSearchable={false}
+        placeholder={filterPlaceholderFunction()}
       />
     </div>
   );

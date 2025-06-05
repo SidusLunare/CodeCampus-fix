@@ -21,6 +21,7 @@ function App() {
 
     setTimeout(fetchData, 1000);
   }, []);
+  
 
   return (
     <main className='app'>
@@ -35,7 +36,7 @@ function App() {
       ) : error ? (
         <section className='error'>{error}</section>
       ) : (
-        <Dashboard courseData={courseData} />
+            <Dashboard courseData={courseData} isLoading={isLoading} />
       )}
     </main>
   );

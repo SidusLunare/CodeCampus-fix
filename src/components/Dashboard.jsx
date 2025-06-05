@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/Dashboard.css';
 
 import FilterTabs from './FilterTabs';
@@ -6,29 +6,46 @@ import SearchBar  from './SearchBar';
 import CourseList from './CourseList';
 import PopularCourses from './PopularCourses';
 import Statistics   from './Statistics';
+import { getFilterLocalStorage, lowercaseFirst } from '../extra/functions';
+import { courses } from '../data/coursesData';
 
-export default function Dashboard({ courseData }) {
+export default function Dashboard({ courseData , isLoading }) {
   const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState({
-    value: 'views',
-    label: 'Totaal weergaven'
+    value: '',
+    label: 'Selecter filter in het dropdown menu'
   });
-  
-  const filterSort = (x, y) => {
-    switch (sortField.value) {
-      case 'views':
-        return y[sortField.value] - x[sortField.value];
-      case 'members':
-        return y[sortField.value] - x[sortField.value];
-      case 'durationNum':
-        return x[sortField.value] - y[sortField.value];
-      default:
-        return 0;
+  const fromLS = getFilterLocalStorage();
+
+  useEffect(() => {
+    if (fromLS !== null) {
+      setSortField({
+        value: fromLS.filter.value,
+        label: `Gefilterd op ${lowercaseFirst(fromLS.filter.label)}`
+      });
     }
-  }
+    return
+  }, [activeTab])
 
+  useEffect(() => {
+    let categories = [];
+    if (isLoading == false) {
+      for (let i = 0; i < courses.length; i++) {
+        let course = courses[i]
+        course.categories.forEach(category => {
+        categories.push(category);
+        });
+      }
+      const categoriesFiltered = Array.from(new Set(categories)); 
+      console.log(categoriesFiltered);
+    }
+  }, [isLoading])
 
+  // useEffect(() => {
+  //   console.log('sortField is now:', sortField);
+  // }, [sortField]);
+  
   const filteredCourses = () => {
     if (!Array.isArray(courseData)) return [];
     let list;
@@ -40,7 +57,17 @@ export default function Dashboard({ courseData }) {
         list = courseData.filter(c => c.level === 'Gevorderd');
         break;
       case 'filter by':
-        list = [...courseData].sort((a, b) => {filterSort(a,b)});
+        list = [...courseData].sort((a, b) => {
+          switch (sortField.value) {
+            case 'views':
+              return b[sortField.value] - a[sortField.value];
+            case 'members':
+              return b[sortField.value] - a[sortField.value];
+            case 'durationNum':
+              return a[sortField.value] - b[sortField.value];
+            default:
+              return 0;
+          }});
         break;
       default:
         list = courseData;
