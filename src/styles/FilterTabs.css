@@ -1,26 +1,12 @@
-.filter-tabs {
+.filter {
+  display: flex;
+  flex-direction: column;
+}
+.filter__tabs__buttons {
   display: flex;
   gap: 8px;
-
 }
-.filter-tabs button:nth-child(4) {
-  padding: 8px 16px;
-  background: #fff;
-  border: 1px solid #e9ecef;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-size: 14px;
-}
-.filter-tabs button.active:nth-child(4) {
-  background: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
-  border-radius: 25px 0px 0px 25px;
-  margin-right: -8px;
-  font-size: 14px;
-}
-.filter-tabs button {
+.filter__tabs__buttons button {
   padding: 8px 16px;
   background: #fff;
   border: 1px solid #e9ecef;
@@ -30,7 +16,16 @@
   font-size: 14px;
   height: 40px;
 }
-.filter-tabs button.active {
+.filter__tabs__buttons button:nth-child(4) {
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 14px;
+}
+.filter__tabs__buttons button.active {
   padding: 8px 16px;
   background: var(--primary-color);
   color: white;
@@ -38,6 +33,17 @@
   font-size: 14px;
   min-height: 40px;
 }
-.filter-dropdown-wrapper {
+.filter__tabs__buttons button.active:nth-child(4) {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  border-radius: 25px 0px 0px 25px;
+  margin-right: -8px;
+  font-size: 14px;
+}
+.filter__tabs__dropdown-wrapper {
   display: flex;
 }
+.filter__categories-wrapper {
+  display: flex;
+}/*# sourceMappingURL=FilterTabs.css.map */

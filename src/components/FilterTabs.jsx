@@ -1,38 +1,46 @@
 // src/components/FilterTabs.jsx
-import SortDropdown from './SortDropdown';
-import '../styles/FilterTabs.css';
-
+import SortDropdown from "./SortDropdown";
+import "../styles/FilterTabs.css";
+import FilterButtons from "./FilterButtons";
 
 export default function FilterTabs({
   activeTab,
   onChangeTab,
   sortField,
   onChangeSort,
+  categoriesFiltered,
 }) {
   const tabs = [
-    { key: 'all',       label: 'Alle Cursussen' },
-    { key: 'beginner',  label: 'Voor Beginners' },
-    { key: 'gevorderd', label: 'Gevorderde' },
-    { key: 'filter by', label: 'Filter by'}
+    { key: "all", label: "Alle Cursussen" },
+    { key: "beginner", label: "Voor Beginners" },
+    { key: "gevorderd", label: "Gevorderde" },
+    { key: "filter by", label: "Filter by" },
   ];
 
   return (
-    <nav className="filter-tabs">
-      {tabs.map(tab => (
-        <button
-          key={tab.key}
-          className={activeTab === tab.key ? 'active' : ''}
-          onClick={() => onChangeTab(tab.key)}
-        >
-          {tab.label}
-        </button>
-      ))}
+    <nav className="filter">
+      <div className="filter__tabs">
+        <div className="filter__tabs__buttons">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              className={activeTab === tab.key ? "active" : ""}
+              onClick={() => onChangeTab(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-      {/* “Meest Bekeken” becomes a dropdown trigger */}
-      <div className="filter-dropdown-wrapper">
-        {activeTab === 'filter by' && (
-          <SortDropdown value={sortField} onChange={onChangeSort} />
-        )}
+        {/* “Meest Bekeken” becomes a dropdown trigger */}
+        <div className="filter__tabs__dropdown-wrapper">
+          {activeTab === "filter by" && (
+            <SortDropdown value={sortField} onChange={onChangeSort} />
+          )}
+        </div>
+      </div>
+      <div className="filter__categories-wrapper">
+        <FilterButtons options={categoriesFiltered} />
       </div>
     </nav>
   );

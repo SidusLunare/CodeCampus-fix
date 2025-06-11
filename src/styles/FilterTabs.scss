@@ -1,0 +1,53 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  &__tabs {
+    &__buttons {
+      display: flex;
+      gap: 8px;
+      & button {
+        padding: 8px 16px;
+        background: #fff;
+        border: 1px solid #e9ecef;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 14px;
+        height: 40px;
+
+        &:nth-child(4) {
+          padding: 8px 16px;
+          background: #fff;
+          border: 1px solid #e9ecef;
+          border-radius: 25px;
+          cursor: pointer;
+          transition: var(--transition);
+          font-size: 14px;
+        }
+
+        &.active {
+          padding: 8px 16px;
+          background: var(--primary-color);
+          color: white;
+          border-color: var(--primary-color);
+          font-size: 14px;
+          min-height: 40px;
+          &:nth-child(4) {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            border-radius: 25px 0px 0px 25px;
+            margin-right: -8px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    &__dropdown-wrapper {
+      display: flex;
+    }
+  }
+  &__categories-wrapper {
+    display: flex;
+  }
+}
