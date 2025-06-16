@@ -1,6 +1,10 @@
 .filter {
   display: flex;
   flex-direction: column;
+  max-width: 80%;
+}
+.filter__tabs {
+  display: flex;
 }
 .filter__tabs__buttons {
   display: flex;

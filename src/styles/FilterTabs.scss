@@ -1,7 +1,9 @@
 .filter {
   display: flex;
   flex-direction: column;
+  max-width: 80%;
   &__tabs {
+    display: flex;
     &__buttons {
       display: flex;
       gap: 8px;

@@ -6,10 +6,16 @@
   animation: fadeIn 0.5s ease;
 }
 
-.dashboard-header {
+.dashboard__header {
   background-color: #f8f9fa;
   padding: 20px;
   border-bottom: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* allows wrapping on mobile */
+
 }
 
 .tab-buttons {
@@ -42,25 +48,17 @@
   box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
 }
 
-.dashboard-content {
+.dashboard__content {
   display: flex;
   padding: 25px;
 }
 
-.main-content {
+.main__content {
   flex: 1;
   margin-right: 25px;
 }
 
-.dashboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap; /* allows wrapping on mobile */
-  gap: 12px;
-}
-
-.main-content h2 {
+.dashboard__content__main h2 {
   margin-top: 0;
   margin-bottom: 30px;
   color: var(--text-color);
@@ -69,7 +67,7 @@
   padding-bottom: 10px;
 }
 
-.main-content h2::after {
+.dashboard__content__main h2::after {
   content: "";
   position: absolute;
   left: 0;
@@ -80,7 +78,7 @@
   border-radius: 2px;
 }
 
-.sidebar {
+.dashboard__content__sidebar {
   width: 320px;
 }
 
@@ -193,16 +191,16 @@
 }
 
 @media (max-width: 900px) {
-  .dashboard-content {
+  .dashboard__content {
     flex-direction: column;
   }
 
-  .main-content {
+  .dashboard__content__main {
     margin-right: 0;
     margin-bottom: 25px;
   }
 
-  .sidebar {
+  .dashboard__content__sidebar {
     width: 100%;
   }
 
@@ -216,17 +214,17 @@
    (screen width 768–1023px)
    --------------------------- */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .dashboard-content {
+  .dashboard__content {
     flex-direction: column;
   }
 
-  .main-content {
-    margin-right: 0;           /* remove gutter to sidebar */
+  .dashboard__content__main {
+    margin-right: 0; /* remove gutter to sidebar */
   }
 
-  .sidebar {
+  .dashboard__content__sidebar {
     width: 100%;
-    margin-top: 30px;          /* push below main content */
+    margin-top: 30px; /* push below main content */
   }
 }
 
@@ -235,15 +233,15 @@
    (screen width <768px)
    --------------------------- */
 @media (max-width: 767px) {
-  .dashboard-content {
+  .dashboard__content {
     flex-direction: column;
   }
 
-  .main-content {
+  .dashboard__content__main {
     margin-right: 0;
   }
 
-  .sidebar {
+  .dashboard__content__sidebar {
     width: 100%;
     margin-top: 30px;
   }

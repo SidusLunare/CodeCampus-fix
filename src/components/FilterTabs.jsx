@@ -9,6 +9,8 @@ export default function FilterTabs({
   sortField,
   onChangeSort,
   categoriesFiltered,
+  changeCategory,
+  categorySelected
 }) {
   const tabs = [
     { key: "all", label: "Alle Cursussen" },
@@ -39,8 +41,12 @@ export default function FilterTabs({
           )}
         </div>
       </div>
-      <div className="filter__categories-wrapper">
-        <FilterButtons options={categoriesFiltered} />
+      <div className="filter__category">
+        <FilterButtons
+          options={categoriesFiltered}
+          selectedCategories={categorySelected}
+          onChangeSelection={changeCategory}
+        />
       </div>
     </nav>
   );

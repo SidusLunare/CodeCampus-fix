@@ -1,3 +1,4 @@
+// src/components/Dashboard.jsx
 import { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 
@@ -20,7 +21,8 @@ export default function Dashboard({ courseData, isLoading }) {
     value: "",
     label: "Selecteer filter in het dropdown menu",
   });
-  const [categoriesFiltered, setCategoriesFiltered] = useState({});
+  const [categoriesFiltered, setCategoriesFiltered] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const fromLS = getFilterLocalStorage();
 
   useEffect(() => {
@@ -33,54 +35,55 @@ export default function Dashboard({ courseData, isLoading }) {
     return;
   }, [activeTab]);
 
+  // vul categoriesFiltered bij init
   useEffect(() => {
-    let categories = [];
-    if (isLoading == false) {
-      for (let i = 0; i < courses.length; i++) {
-        let course = courses[i];
-        course.categories.forEach((category) => {
-          categories.push(category);
-        });
-      }
-      const raw = Array.from(new Set(categories));
+    if (!isLoading) {
+      const allCats = courses.flatMap((c) => c.categories);
+      const unique = Array.from(new Set(allCats));
       setCategoriesFiltered(
-        raw.map((obj, idx) => ({
-          id: idx + 1,
-          category: obj,
-          label: capitalize(obj),
+        unique.map((cat, i) => ({
+          id: i + 1,
+          category: cat,
+          label: capitalize(cat),
         }))
       );
     }
-  }, []);
+  }, [isLoading]);
 
-  console.log(categoriesFiltered);
   const filteredCourses = () => {
     if (!Array.isArray(courseData)) return [];
-    let list;
-    switch (activeTab) {
-      case "beginner":
-        list = courseData.filter((c) => c.level === "Beginner");
-        break;
-      case "gevorderd":
-        list = courseData.filter((c) => c.level === "Gevorderd");
-        break;
-      case "filter by":
-        list = [...courseData].sort((a, b) => {
-          switch (sortField.value) {
-            case "views":
-              return b[sortField.value] - a[sortField.value];
-            case "members":
-              return b[sortField.value] - a[sortField.value];
-            case "durationNum":
-              return a[sortField.value] - b[sortField.value];
-            default:
-              return 0;
-          }
-        });
-        break;
-      default:
-        list = courseData;
+
+    // begin met alle courses
+    let list = [...courseData];
+
+    // 1) filter op level-tabs
+    if (activeTab === "beginner") {
+      list = list.filter((c) => c.level === "Beginner");
+    } else if (activeTab === "gevorderd") {
+      list = list.filter((c) => c.level === "Gevorderd");
+    } else if (activeTab === "filter by") {
+      list = list.sort((a, b) => {
+        switch (sortField.value) {
+          case "views":
+          case "members":
+            return b[sortField.value] - a[sortField.value];
+          case "durationNum":
+            return a.durationNum - b.durationNum;
+          default:
+            return 0;
+        }
+      });
     }
+    // bij "all" doen we niets
+
+    // 2) filter op geselecteerde categorieën (OR-match)
+    if (selectedCategories.length > 0) {
+      list = list.filter((c) =>
+        c.categories.some((cat) => selectedCategories.includes(cat))
+      );
+    }
+
+    // 3) filter op zoekterm
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
       list = list.filter(
@@ -89,24 +92,27 @@ export default function Dashboard({ courseData, isLoading }) {
           c.description.toLowerCase().includes(term)
       );
     }
+
     return list;
   };
 
   return (
     <section className="dashboard">
-      <header className="dashboard-header">
+      <header className="dashboard__header">
         <FilterTabs
           activeTab={activeTab}
           onChangeTab={setActiveTab}
           sortField={sortField}
           onChangeSort={setSortField}
           categoriesFiltered={categoriesFiltered}
+          changeCategory={setSelectedCategories}
+          categorySelected={selectedCategories}
         />
         <SearchBar value={searchTerm} onChange={setSearchTerm} />
       </header>
 
-      <div className="dashboard-content">
-        <main className="main-content">
+      <div className="dashboard__content">
+        <main className="dashboard__content__main">
           <h2>
             {activeTab === "all" && "Alle Cursussen"}
             {activeTab === "beginner" && "Cursussen voor Beginners"}
@@ -115,7 +121,7 @@ export default function Dashboard({ courseData, isLoading }) {
           </h2>
           <CourseList courses={filteredCourses()} />
         </main>
-        <aside className="sidebar">
+        <aside className="dashboard_content__sidebar">
           <PopularCourses courses={courseData} />
           <Statistics courses={courseData} />
         </aside>
