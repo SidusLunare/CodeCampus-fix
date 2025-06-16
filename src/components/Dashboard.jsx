@@ -7,10 +7,13 @@ import SearchBar from "./SearchBar";
 import CourseList from "./CourseList";
 import PopularCourses from "./PopularCourses";
 import Statistics from "./Statistics";
+
 import {
   capitalize,
-  getFilterLocalStorage,
   lowercaseFirst,
+  getFilterLocalStorage,
+  getCategoryLocalStorage,
+  setCategoryLocalStorage,
 } from "../extra/functions";
 import { courses } from "../data/coursesData";
 
@@ -22,20 +25,30 @@ export default function Dashboard({ courseData, isLoading }) {
     label: "Selecteer filter in het dropdown menu",
   });
   const [categoriesFiltered, setCategoriesFiltered] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const fromLS = getFilterLocalStorage();
 
+  // Lees bij init geselecteerde categories uit localStorage of val terug op lege array
+  const [selectedCategories, setSelectedCategories] = useState(() => {
+    const fromLS = getCategoryLocalStorage();
+    return Array.isArray(fromLS) ? fromLS : [];
+  });
+
+  // Sla wijzigingen in selectie op
   useEffect(() => {
+    setCategoryLocalStorage(selectedCategories);
+  }, [selectedCategories]);
+
+  // Lees sort-filter uit LS (onafhankelijk van categorieën)
+  useEffect(() => {
+    const fromLS = getFilterLocalStorage();
     if (fromLS !== null) {
       setSortField({
         value: fromLS.filter.value,
         label: `Gefilterd op ${lowercaseFirst(fromLS.filter.label)}`,
       });
     }
-    return;
   }, [activeTab]);
 
-  // vul categoriesFiltered bij init
+  // Bouw lijst van unieke categorieën
   useEffect(() => {
     if (!isLoading) {
       const allCats = courses.flatMap((c) => c.categories);
@@ -50,13 +63,13 @@ export default function Dashboard({ courseData, isLoading }) {
     }
   }, [isLoading]);
 
+  // Filter-logica
   const filteredCourses = () => {
     if (!Array.isArray(courseData)) return [];
 
-    // begin met alle courses
     let list = [...courseData];
 
-    // 1) filter op level-tabs
+    // 1) level-tabs
     if (activeTab === "beginner") {
       list = list.filter((c) => c.level === "Beginner");
     } else if (activeTab === "gevorderd") {
@@ -74,16 +87,16 @@ export default function Dashboard({ courseData, isLoading }) {
         }
       });
     }
-    // bij "all" doen we niets
+    // bij "all" niks doen
 
-    // 2) filter op geselecteerde categorieën (OR-match)
+    // 2) categorieën (OR-match)
     if (selectedCategories.length > 0) {
       list = list.filter((c) =>
         c.categories.some((cat) => selectedCategories.includes(cat))
       );
     }
 
-    // 3) filter op zoekterm
+    // 3) zoekterm
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
       list = list.filter(

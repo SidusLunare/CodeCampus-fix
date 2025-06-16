@@ -22,3 +22,22 @@ export function getFilterLocalStorage() {
 
   return { filter };
 }
+
+export function setCategoryLocalStorage(cats) {
+  if (Array.isArray(cats) && cats.length > 0) {
+    localStorage.setItem("selectedCategories", JSON.stringify(cats));
+  } else {
+    localStorage.removeItem("selectedCategories");
+  }
+}
+
+export function getCategoryLocalStorage() {
+  const item = localStorage.getItem("selectedCategories");
+  if (!item) return null;
+  try {
+    const parsed = JSON.parse(item);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
