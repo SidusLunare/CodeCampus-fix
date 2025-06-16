@@ -15,7 +15,6 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap; /* allows wrapping on mobile */
-
 }
 
 .tab-buttons {
@@ -51,6 +50,7 @@
 .dashboard__content {
   display: flex;
   padding: 25px;
+  justify-content: space-between;
 }
 
 .main__content {
