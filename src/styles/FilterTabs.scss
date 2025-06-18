@@ -7,7 +7,7 @@
     &__buttons {
       display: flex;
       gap: 8px;
-      & button {
+      button {
         padding: 8px 16px;
         background: #fff;
         border: 1px solid #e9ecef;
@@ -17,7 +17,7 @@
         font-size: 14px;
         height: 40px;
 
-        &:nth-child(4) {
+        :nth-child(4) {
           padding: 8px 16px;
           background: #fff;
           border: 1px solid #e9ecef;

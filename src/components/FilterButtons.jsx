@@ -1,11 +1,14 @@
+// src/components/FilterButtons.jsx
+import React from "react";
 import "../styles/FilterButtons.css";
 
 export default function FilterButtons({
-  options,
-  selectedCategories,
-  onChangeSelection,
+  options = [],
+  selectedCategories = [],
+  onChangeSelection = () => {},
+  favoriteFilterActive = false,
+  onToggleFavoriteFilter = () => {},
 }) {
-  // Ensure options is always an array to avoid map errors
   const categories = Array.isArray(options) ? options : [];
 
   const handleToggle = (category) => {
@@ -20,23 +23,40 @@ export default function FilterButtons({
 
   return (
     <section className="filter__category__buttons">
+      {/* Clear all (resets both categories & favorites) */}
       <button
         key="clear-all"
-        className={noneSelected ? "active" : ""}
-        onClick={() => onChangeSelection([])}
+        className={!favoriteFilterActive && noneSelected ? "active" : ""}
+        onClick={() => {
+          onChangeSelection([]);
+          onToggleFavoriteFilter(false);
+        }}
       >
         Clear All
       </button>
 
-      {categories.map((cat) => (
-        <button
-          key={cat.id}
-          className={selectedCategories.includes(cat.category) ? "active" : ""}
-          onClick={() => handleToggle(cat.category)}
-        >
-          {cat.label}
-        </button>
-      ))}
+      <button
+        key="favorite-filter"
+        className={favoriteFilterActive ? "active" : ""}
+        onClick={() => onToggleFavoriteFilter((prev) => !prev)}
+      >
+        ★ Favorites
+      </button>
+
+
+      {/* Your existing category buttons */}
+      {categories.map((cat) => {
+        const isActive = selectedCategories.includes(cat.category);
+        return (
+          <button
+            key={cat.id}
+            className={isActive ? "active" : ""}
+            onClick={() => handleToggle(cat.category)}
+          >
+            {cat.label}
+          </button>
+        );
+      })}
     </section>
   );
 }

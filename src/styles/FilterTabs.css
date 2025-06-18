@@ -20,7 +20,7 @@
   font-size: 14px;
   height: 40px;
 }
-.filter__tabs__buttons button:nth-child(4) {
+.filter__tabs__buttons button :nth-child(4) {
   padding: 8px 16px;
   background: #fff;
   border: 1px solid #e9ecef;

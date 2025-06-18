@@ -1,41 +1,44 @@
-import Select from 'react-select';
-import '../styles/SortDropdown.css';
-import { lowercaseFirst, setFilterLocalStorage, getFilterLocalStorage } from '../extra/functions';
+import Select from "react-select";
+import "../styles/SortDropdown.css";
+import {
+  lowercaseFirst,
+  setFilterLocalStorage,
+  getFilterLocalStorage,
+} from "../extra/functions";
 
 export default function SortDropdown({ value, onChange }) {
-
   const filters = [
-    { key: 'views', label: 'Totaal weergaven' },
-    { key: 'members', label: 'Totaal leden' },
-    { key: 'durationNum', label: 'Lengte (kort -> lang)' },
+    { key: "views", label: "Totaal weergaven" },
+    { key: "members", label: "Totaal leden" },
+    { key: "duration", label: "Lengte (kort -> lang)" },
   ];
 
-  const options = filters.map(filter => ({
+  const options = filters.map((filter) => ({
     value: filter.key,
     label: filter.label,
   }));
-  
+
   const filterOnChange = (option) => {
-    setFilterLocalStorage(option)
-    
+    setFilterLocalStorage(option);
+
     onChange({
       value: option.value,
       label: `Gefilterd op ${lowercaseFirst(option.label)}`,
-    })
-  }
+    });
+  };
 
   const filterValueFunction = () => {
-      options.find(o => o.value === value)
-  }
+    options.find((o) => o.value === value);
+  };
 
   const filterPlaceholderFunction = () => {
     const fromLS = getFilterLocalStorage();
     if (fromLS !== null) {
-      return fromLS.filter.label
+      return fromLS.filter.label;
     } else {
-      return
+      return;
     }
-  }
+  };
 
   return (
     <div className="sort-container">

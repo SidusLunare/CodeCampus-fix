@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import Dashboard from './components/Dashboard';
-import { courses } from './data/coursesData.js';
-import './styles/App.css';
+import { useEffect, useState } from "react";
+import Dashboard from "./components/Dashboard";
+import { courses } from "./data/coursesData.js";
+import "./styles/App.css";
 
 function App() {
   const [courseData, setCourseData] = useState([]);
@@ -14,29 +14,28 @@ function App() {
         setCourseData(courses);
         setIsLoading(false);
       } catch (err) {
-        setError('Er is een fout opgetreden bij het laden van de cursussen.');
+        setError("Er is een fout opgetreden bij het laden van de cursussen.");
         setIsLoading(false);
       }
     };
 
     setTimeout(fetchData, 1000);
   }, []);
-  
 
   return (
-    <main className='app'>
-      <header className='app-header'>
-        <div className='logo-container'>
-          <h1 className='brand-logo'>CodeCampus</h1>
-          <p className='brand-tagline'>Ontdek, Leer, Excelleer</p>
+    <main className="app">
+      <header className="app-header">
+        <div className="logo-container">
+          <h1 className="brand-logo">CodeCampus</h1>
+          <p className="brand-tagline">Ontdek, Leer, Excelleer</p>
         </div>
       </header>
       {isLoading ? (
-        <section className='loading'>Cursussen worden geladen...</section>
+        <section className="loading">Cursussen worden geladen...</section>
       ) : error ? (
-        <section className='error'>{error}</section>
+        <section className="error">{error}</section>
       ) : (
-            <Dashboard courseData={courseData} isLoading={isLoading} />
+        <Dashboard courseData={courseData} isLoading={isLoading} />
       )}
     </main>
   );

@@ -1,4 +1,5 @@
 // src/components/FilterTabs.jsx
+import React from "react";
 import SortDropdown from "./SortDropdown";
 import "../styles/FilterTabs.css";
 import FilterButtons from "./FilterButtons";
@@ -10,7 +11,9 @@ export default function FilterTabs({
   onChangeSort,
   categoriesFiltered,
   changeCategory,
-  categorySelected
+  categorySelected,
+  favoriteFilter,
+  onToggleFavoriteFilter,
 }) {
   const tabs = [
     { key: "all", label: "Alle Cursussen" },
@@ -34,18 +37,20 @@ export default function FilterTabs({
           ))}
         </div>
 
-        {/* “Meest Bekeken” becomes a dropdown trigger */}
         <div className="filter__tabs__dropdown-wrapper">
           {activeTab === "filter by" && (
             <SortDropdown value={sortField} onChange={onChangeSort} />
           )}
         </div>
       </div>
+
       <div className="filter__category">
         <FilterButtons
           options={categoriesFiltered}
           selectedCategories={categorySelected}
           onChangeSelection={changeCategory}
+          favoriteFilterActive={favoriteFilter}
+          onToggleFavoriteFilter={onToggleFavoriteFilter}
         />
       </div>
     </nav>

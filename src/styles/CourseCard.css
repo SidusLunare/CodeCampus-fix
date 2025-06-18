@@ -65,6 +65,16 @@
   line-height: 1.4;
 }
 
+.course-content-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.course-content-title-wrapper button {
+  width: 90px;
+  height: 25px;
+}
+
 .course-description {
   color: var(--text-light);
   font-size: 14px;
@@ -117,7 +127,20 @@
 
 .course-actions {
   text-align: center;
-  margin-top: auto;
+  margin: 20px;
+  margin-top: -10px;
+  z-index: 2;
+}
+
+.course-favorites {
+  position: absolute;
+  margin: 190px 0px 0px 350px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
 }
 
 .course-button {
